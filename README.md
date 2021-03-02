@@ -13,6 +13,7 @@
 
 
 
+
 ### Association
 - has_many :products
 - has_many :records
@@ -20,45 +21,46 @@
 
 ## products テーブル
 
-| Column          | Type    | Options     |
-|-----------------|---------|-------------|
-| product_name    | string  | null: false |
-| product_explain | text    | null: false |
-| category        | string  | null: false |
-| product_status  | integer | null: false |
-| shipping_fee    | integer | null: false |
-| shipment_source | string  | null: false |
-| days            | integer | null: false |
-| price           | integer | null: false |
-| seller          | string  | null: false |
+| Column            | Type    | Options     |
+|-------------------|---------|-------------|
+| product_name      | string  | null: false |
+| product_explain   | text    | null: false |
+| category_id       | integer | null: false |
+| product_status_id | integer | null: false |
+| shipping_fee_id   | integer | null: false |
+| prefectures_id    | integer | null: false |
+| days_id           | integer | null: false |
+| price             | integer | null: false |
 
 
 ### Association
-- belongs_to :users
-- has_one :records
+- belongs_to :user
+- has_one :record
 
 
 ## recordsテーブル
-| Column           |  Type  | Options     |
-|------------------|--------|-------------|
-| buyer            | string | null: false |
-| buy_product_name | string | null: false |
+| Column           |  Type  | Options           |
+|------------------|--------|-------------------|
+| products_id      | string | foreign_key: true |
+| users_id         | string | foreign_key: true |
+
 
 ### Association
-- belongs_to :users
-- belongs_to :products
-- has_one :personal_dates
+- belongs_to :user
+- belongs_to :product
+- has_one :personal_date
 
 ## personal_datesテーブル
 
-| Column       |  Type   | Options     |
-|--------------|---------|-------------|
-| postal_code  | string  | null: false |
-| prefectures  | string  | null: false |
-| city         | string  | null: false |
-| address      | string  | null: false |
-| phone_number | integer | null: false |
+| Column          |  Type   | Options     |
+|-----------------|---------|-------------|
+| postal_code     | string  | null: false |
+| prefectures_id  | integer | null: false |
+| city            | string  | null: false |
+| address         | string  | null: false |
+| building        | string  |             | 
+| phone_number    | string  | null: false |
 
 
 ### Association
-- belongs_to :records
+- belongs_to :record
