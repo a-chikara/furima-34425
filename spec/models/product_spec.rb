@@ -9,7 +9,6 @@ RSpec.describe Product, type: :model do
     context '出品できる場合' do
       it '全て入力できていれば出品できる' do
         expect(@product).to be_valid
-        binding.pry
       end
     end
     context '出品できない場合' do
