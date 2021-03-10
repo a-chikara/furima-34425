@@ -7,11 +7,13 @@ class Product < ApplicationRecord
   with_options presence: true do
     validates :product_name
     validates :product_explain
-    validates :category_id, numericality: { other_than: 1 } 
-    validates :product_status_id, numericality: { other_than: 1 } 
-    validates :shipping_fee_id, numericality: { other_than: 1 } 
-    validates :prefecture_id, numericality: { other_than: 1 } 
-    validates :day_id, numericality: { other_than: 1 } 
+    with_options numericality: { other_than: 1 } do
+      validates :category_id 
+      validates :product_status_id
+      validates :shipping_fee_id
+      validates :prefecture_id
+      validates :day_id
+    end
     validates :price, numericality: { greater_than:299 , less_than: 10000000},format:{with: /\A[0-9]+\z/}
     validates :image
   end

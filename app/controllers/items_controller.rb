@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :create]
   
   def index
   end
@@ -10,7 +10,6 @@ class ItemsController < ApplicationController
   end
 
   def create
-    binding.pry
     @product = Product.new(product_params)
     if @product.save
       redirect_to root_path
