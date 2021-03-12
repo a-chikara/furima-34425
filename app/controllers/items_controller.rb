@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_product, only: [:show, :edit, :update]
-  before_action :set_branch, only: [:edit, :update]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_branch, only: [:edit, :update, :destroy]
   def index
     @product = Product.all.order(created_at: :desc)
   end
@@ -31,6 +31,12 @@ class ItemsController < ApplicationController
       redirect_to action: :show
     else
       render :edit
+    end
+  end
+  def destroy
+    @product.destroy
+    if @product.destroy
+      redirect_to action: :index
     end
   end
   
