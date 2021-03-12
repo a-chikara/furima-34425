@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  
+  before_action :set_product, only: [:show, :edit, :update]
+  before_action :set_branch, only: [:edit, :update]
   def index
     @product = Product.all.order(created_at: :desc)
   end
@@ -20,18 +21,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def edit
-    @product = Product.find(params[:id])
-    unless current_user.id == @product.user.id
-      redirect_to action: :index
-    end
   end
 
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       redirect_to action: :show
     else
@@ -46,4 +41,13 @@ class ItemsController < ApplicationController
     params.require(:product).permit(:product_name, :product_explain, :category_id, :product_status_id, :shipping_fee_id, :prefecture_id, :day_id, :price, :image).merge(user_id: current_user.id)
   end
 
+  def set_product
+    @product = Product.find(params[:id])
+  end
+
+  def set_branch
+    unless current_user.id == @product.user.id
+      redirect_to action: :index
+    end
+  end
 end
