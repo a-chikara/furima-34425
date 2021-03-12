@@ -22,6 +22,19 @@ class ItemsController < ApplicationController
   def show
     @product = Product.find(params[:id])
   end
+
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    if @product.update(product_params)
+      redirect_to action: :show
+    else
+      render :edit
+    end
+  end
   
 
   private
