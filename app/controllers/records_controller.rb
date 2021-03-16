@@ -30,7 +30,7 @@ class RecordsController < ApplicationController
   end
 
   def set_move
-    if @product.user_id == current_user.id
+    if (@product.user_id == current_user.id) && @product.record.nil?
       redirect_to root_path
     end
   end

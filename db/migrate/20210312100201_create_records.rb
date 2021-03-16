@@ -1,8 +1,8 @@
 class CreateRecords < ActiveRecord::Migration[6.0]
   def change
     create_table :records do |t|
-      t.integer                :user_id
-      t.integer                :product_id
+      t.integer                :user_id,         foreign_key: true
+      t.integer                :product_id,      foreign_key: true
       t.timestamps
     end
   end

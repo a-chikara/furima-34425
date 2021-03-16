@@ -8,6 +8,13 @@ RSpec.describe PersonalDateRecord, type: :model do
 
 
   describe '商品購入機能' do
+    context '購入できる場合' do
+      it '必須項目が記入されていれば購入できる' do
+        expect(@personal_date_record).to be_valid
+      end
+    end
+
+
     context '購入できない場合' do
       it 'postal_codeが空では購入できない' do
         @personal_date_record.postal_code = ''
@@ -48,6 +55,16 @@ RSpec.describe PersonalDateRecord, type: :model do
         @personal_date_record.token = nil
         @personal_date_record.valid?
         expect(@personal_date_record.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では購入できない' do
+        @personal_date_record.user_id = ''
+        @personal_date_record.valid?
+        expect(@personal_date_record.errors.full_messages).to include("User can't be blank")
+      end
+      it 'product_idが空では購入できない' do
+        @personal_date_record.product_id = ''
+        @personal_date_record.valid?
+        expect(@personal_date_record.errors.full_messages).to include("Product can't be blank")
       end
     end
   end
