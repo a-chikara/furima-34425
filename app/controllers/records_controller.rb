@@ -1,6 +1,7 @@
 class RecordsController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!
   before_action :set_product, only:[:index,:create]
+  before_action :set_move, only:[:index, :create]
 
   def index
     @personal_date_record = PersonalDateRecord.new
@@ -28,6 +29,12 @@ class RecordsController < ApplicationController
     @product = Product.find(params[:product_id])
   end
 
+  def set_move
+    if @product.user_id == current_user.id
+      redirect_to root_path
+    end
+  end
+
   def pay_product
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
@@ -35,7 +42,6 @@ class RecordsController < ApplicationController
       card: record_params[:token],    # カードトークン
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
-
   end
 
 end
