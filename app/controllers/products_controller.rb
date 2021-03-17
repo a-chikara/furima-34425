@@ -1,4 +1,4 @@
-class ItemsController < ApplicationController
+class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_branch, only: [:edit, :update, :destroy]
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def set_branch
-    unless current_user.id == @product.user.id
+    if current_user.id != @product.user.id || @product.record.present?
       redirect_to action: :index
     end
   end
