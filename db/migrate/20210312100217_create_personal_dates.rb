@@ -7,7 +7,7 @@ class CreatePersonalDates < ActiveRecord::Migration[6.0]
       t.string                   :address,                         null: false
       t.string                   :phone_number,                    null: false
       t.string                   :building
-      t.integer                  :record_id,                       foreign_key: true
+      t.references               :record,                       foreign_key: true
       t.timestamps
     end
   end

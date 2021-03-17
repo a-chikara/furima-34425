@@ -39,7 +39,7 @@ RSpec.describe PersonalDateRecord, type: :model do
         expect(@personal_date_record.errors.full_messages).to include("Prefecture can't be blank")
       end
       it 'prefecture_idが0では購入できない' do
-        @personal_date_record.prefecture_id = '0'
+        @personal_date_record.prefecture_id = 0
         @personal_date_record.valid?
         expect(@personal_date_record.errors.full_messages).to include("Prefecture can't be blank")
       end

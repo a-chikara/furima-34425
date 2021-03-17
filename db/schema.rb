@@ -40,9 +40,10 @@ ActiveRecord::Schema.define(version: 2021_03_12_100217) do
     t.string "address", null: false
     t.string "phone_number", null: false
     t.string "building"
-    t.integer "record_id"
+    t.bigint "record_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_id"], name: "index_personal_dates_on_record_id"
   end
 
   create_table "products", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -60,10 +61,12 @@ ActiveRecord::Schema.define(version: 2021_03_12_100217) do
   end
 
   create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+    t.bigint "user_id"
+    t.bigint "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_records_on_product_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -85,4 +88,7 @@ ActiveRecord::Schema.define(version: 2021_03_12_100217) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "personal_dates", "records"
+  add_foreign_key "records", "products"
+  add_foreign_key "records", "users"
 end
