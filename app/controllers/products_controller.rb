@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
   end
 
   def set_branch
-    unless (current_user.id == @product.user.id) && @product.record.nil?
+    if current_user.id != @product.user.id || @product.record.present?
       redirect_to action: :index
     end
   end
