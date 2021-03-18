@@ -31,9 +31,10 @@ class RecordsController < ApplicationController
 
   def set_move
     if current_user.id == @product.user.id || @product.record.present?
-      redirect_to action: :index
+      redirect_to root_path
     end
   end
+
   def pay_product
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
